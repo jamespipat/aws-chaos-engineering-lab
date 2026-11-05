@@ -1,0 +1,31 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+.plans/
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*.tfvars
+*.tfvars.json
+backend.hcl
+
+# Node and Python
+node_modules/
+dist/
+coverage/
+__pycache__/
+*.pyc
+
+# Local evidence and secrets
+evidence/private/
+windows.json
+.env
+.env.*
+.kube/
+*.pem
+!app/certs/global-bundle.pem
+*.key
+*.log

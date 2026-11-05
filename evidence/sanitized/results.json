@@ -1,0 +1,53 @@
+{
+  "acknowledged_writes": 13220,
+  "missing_rows": 0,
+  "duplicate_effects": 0,
+  "verified_at": "2026-11-05T07:26:41Z",
+  "dead_letter_messages": 0,
+  "baseline": {
+    "start": "2026-11-05T06:51:39Z",
+    "end": "2026-11-05T07:09:21Z",
+    "requests": 5310,
+    "logical_success_rate": 1,
+    "first_attempt_success": 5306,
+    "p95_ms": 8,
+    "p99_ms": 37
+  },
+  "pod_delete": {
+    "action_start": "2026-11-05T07:09:21.026Z",
+    "action_end": "2026-11-05T07:09:41.492Z",
+    "replacement_ready": "2026-11-05T07:09:32Z",
+    "ready_seconds": 11,
+    "window_requests": 600,
+    "logical_success_rate": 1,
+    "first_attempt_success_rate": 1,
+    "p95_ms": 8,
+    "p99_ms": 24
+  },
+  "latency": {
+    "configured_delay_ms": 100,
+    "action_start": "2026-11-05T07:15:38.158Z",
+    "action_end": "2026-11-05T07:18:01.046Z",
+    "requests": 715,
+    "logical_success_rate": 1,
+    "p95_ms": 426,
+    "p99_ms": 439,
+    "recovery_minute_p95_ms": [8, 8, 10]
+  },
+  "minute_p95_ms": {
+    "07:08": 7,
+    "07:09": 6,
+    "07:10": 8,
+    "07:11": 8,
+    "07:12": 9,
+    "07:13": 7,
+    "07:14": 8,
+    "07:15": 418,
+    "07:16": 427,
+    "07:17": 424,
+    "07:18": 8,
+    "07:19": 8,
+    "07:20": 10,
+    "07:21": 7
+  }
+}

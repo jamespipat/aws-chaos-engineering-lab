@@ -1,0 +1,58 @@
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ""
+      AWS_SECRET_ACCESS_KEY: ""
+      AWS_EC2_METADATA_DISABLED: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.14.6
+      - name: install ripgrep
+        run: sudo apt-get update && sudo apt-get install -y ripgrep
+      - name: structure check
+        run: ./scripts/check-terraform-structure.sh
+      - name: scrub tests and generic scrub
+        run: |
+          ./scripts/test-sharing-scrub.sh
+          ./scripts/check-sharing-scrub.sh
+      - name: app
+        working-directory: app
+        run: |
+          npm ci
+          npm test
+          npm run build
+      - name: validate roots
+        run: |
+          set -euo pipefail
+          terraform fmt -check -recursive infra
+          roots=(
+            infra/bootstrap
+            infra/envs/lab/evidence
+            infra/envs/lab/foundation
+            infra/envs/lab/workloads
+            infra/envs/lab/experiments
+            infra/modules/fis-experiment
+          )
+          for root in "${roots[@]}"; do
+            terraform -chdir="$root" init -backend=false -input=false -lockfile=readonly
+            terraform -chdir="$root" validate
+          done
+      - name: fis module test
+        run: terraform -chdir=infra/modules/fis-experiment test
